@@ -1,6 +1,7 @@
 package com.sky.controller.admin;
 
 import com.sky.constant.JwtClaimsConstant;
+import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.entity.Employee;
 import com.sky.properties.JwtProperties;
@@ -8,6 +9,8 @@ import com.sky.result.Result;
 import com.sky.service.EmployeeService;
 import com.sky.utils.JwtUtil;
 import com.sky.vo.EmployeeLoginVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +27,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/admin/employee")
 @Slf4j
+//api注解用于生成接口文档，通过添加相应的描述，可以在WebMvcConfiguration文件中给出的网页进行登录查看测试接口
+//注解的目标是保证接口文档的可读性
+@Api(tags = "员工相关接口")
 public class EmployeeController {
 
     @Autowired
@@ -38,8 +44,11 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("/login")
+    @ApiOperation("员工登录")
     public Result<EmployeeLoginVO> login(@RequestBody EmployeeLoginDTO employeeLoginDTO) {
         log.info("员工登录：{}", employeeLoginDTO);
+
+
 
         Employee employee = employeeService.login(employeeLoginDTO);
 
@@ -67,8 +76,23 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("/logout")
+    @ApiOperation("员工退出")
     public Result<String> logout() {
         return Result.success();
     }
 
+    /**
+     * 新增员工
+     */
+    @PostMapping
+    @ApiOperation("新增员工")
+    public Result addEmployee(@RequestBody EmployeeDTO employeeDTO){
+        log.info("新增员工:{}", employeeDTO);
+
+        //Controller处打印当前线程id
+        System.out.println("当前线程id：" + Thread.currentThread().getId());
+
+        employeeService.save(employeeDTO);
+        return Result.success();
+    }
 }
