@@ -46,8 +46,6 @@ public class EmployeeController {
     public Result<EmployeeLoginVO> login(@RequestBody EmployeeLoginDTO employeeLoginDTO) {
         log.info("员工登录：{}", employeeLoginDTO);
 
-
-
         Employee employee = employeeService.login(employeeLoginDTO);
 
         //登录成功后，生成jwt令牌
@@ -93,7 +91,6 @@ public class EmployeeController {
         return Result.success();
     }
 
-
     /**
      * 分页查询
      */
@@ -103,6 +100,45 @@ public class EmployeeController {
         log.info("员工分页查询，参数为{}", employeePageQueryDTO);
         PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
         return Result.success(pageResult);
+    }
+
+    /**
+     * 启用禁用员工账户
+     * @param status
+     * @param id
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("员工禁用启用")
+    public Result startOrStop(@PathVariable Integer status, Long id){
+        log.info("员工禁用启用：{},{}", status, id);
+        employeeService.startOrStop(status, id);
+        return Result.success();
+    }
+
+    /**
+     * 员工id查询
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("员工id查询")
+    public Result<Employee> getById(@PathVariable Long id){
+        log.info("员工id查询：{}", id);
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
+    }
+
+    /**
+     * 编辑员工信息
+     * @param employeeDTO
+     * @return
+     */
+    @PutMapping
+    @ApiOperation("编辑员工")
+    public Result update(@RequestBody EmployeeDTO employeeDTO){
+        log.info("编辑员工信息：{}", employeeDTO);
+        employeeService.update(employeeDTO);
+        return Result.success();
     }
 
 }
