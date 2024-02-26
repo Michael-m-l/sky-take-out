@@ -108,8 +108,8 @@ public class CategoryServiceImpl implements CategoryService {
         //设置修改时间、修改人
 //        category.setUpdateTime(LocalDateTime.now());
 //        category.setUpdateUser(BaseContext.getCurrentId());
-        category.setUpdateTime(LocalDateTime.now());
-        category.setUpdateUser(BaseContext.getCurrentId());
+//        category.setUpdateTime(LocalDateTime.now());
+//        category.setUpdateUser(BaseContext.getCurrentId());
 
         categoryMapper.update(category);
     }
@@ -125,8 +125,8 @@ public class CategoryServiceImpl implements CategoryService {
                 .status(status)
 //                .updateTime(LocalDateTime.now())
 //                .updateUser(BaseContext.getCurrentId())
-                .updateTime(LocalDateTime.now())
-                .updateUser(BaseContext.getCurrentId())
+//                .updateTime(LocalDateTime.now())
+//                .updateUser(BaseContext.getCurrentId())
                 .build();
         categoryMapper.update(category);
     }
