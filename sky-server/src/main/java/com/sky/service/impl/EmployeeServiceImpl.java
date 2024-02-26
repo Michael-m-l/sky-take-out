@@ -91,14 +91,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         //设置默认密码，尽量不要用数据，用常量
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
 
-        //设置当前记录的创建时间和修改时间
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
+        //设置当前记录的创建时间和修改时间---已有AOP切面注解为公共属性赋值
+//        employee.setCreateTime(LocalDateTime.now());
+//        employee.setUpdateTime(LocalDateTime.now());
 
         //设置当前记录创建人id和修改人id
         //TODO 从拦截器的线程中先设置当前ID，由于拦截器，service，controller都是一个线程，在此可以获取前面设置的ID
-        employee.setCreateUser(BaseContext.getCurrentId());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+//        employee.setCreateUser(BaseContext.getCurrentId());
+//        employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.insert(employee);
     }
@@ -156,8 +156,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         //更新时间
         //设置当前记录的修改时间和修改ID
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+//        employee.setUpdateTime(LocalDateTime.now());
+//        employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.update(employee);
     }
