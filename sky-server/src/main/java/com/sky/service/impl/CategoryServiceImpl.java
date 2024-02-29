@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
+
  * 分类业务层
  */
 @Service
@@ -36,7 +37,9 @@ public class CategoryServiceImpl implements CategoryService {
     private SetmealMapper setmealMapper;
 
     /**
+
      * 新增分类
+
      * @param categoryDTO
      */
     public void save(CategoryDTO categoryDTO) {
@@ -48,12 +51,6 @@ public class CategoryServiceImpl implements CategoryService {
         category.setStatus(StatusConstant.DISABLE);
 
         //设置创建时间、修改时间、创建人、修改人
-
-//        category.setCreateTime(LocalDateTime.now());
-//        category.setUpdateTime(LocalDateTime.now());
-//        category.setCreateUser(BaseContext.getCurrentId());
-//        category.setUpdateUser(BaseContext.getCurrentId());
-
         category.setCreateTime(LocalDateTime.now());
         category.setUpdateTime(LocalDateTime.now());
         category.setCreateUser(BaseContext.getCurrentId());
@@ -63,6 +60,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     /**
+
      * 分页查询
      * @param categoryPageQueryDTO
      * @return
@@ -75,7 +73,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     /**
+
      * 根据id删除分类
+
      * @param id
      */
     public void deleteById(Long id) {
@@ -98,7 +98,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     /**
+
      * 修改分类
+
      * @param categoryDTO
      */
     public void update(CategoryDTO categoryDTO) {
@@ -106,15 +108,14 @@ public class CategoryServiceImpl implements CategoryService {
         BeanUtils.copyProperties(categoryDTO,category);
 
         //设置修改时间、修改人
-//        category.setUpdateTime(LocalDateTime.now());
-//        category.setUpdateUser(BaseContext.getCurrentId());
-//        category.setUpdateTime(LocalDateTime.now());
-//        category.setUpdateUser(BaseContext.getCurrentId());
+        category.setUpdateTime(LocalDateTime.now());
+        category.setUpdateUser(BaseContext.getCurrentId());
 
         categoryMapper.update(category);
     }
 
     /**
+
      * 启用、禁用分类
      * @param status
      * @param id
@@ -123,15 +124,14 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = Category.builder()
                 .id(id)
                 .status(status)
-//                .updateTime(LocalDateTime.now())
-//                .updateUser(BaseContext.getCurrentId())
-//                .updateTime(LocalDateTime.now())
-//                .updateUser(BaseContext.getCurrentId())
+                .updateTime(LocalDateTime.now())
+                .updateUser(BaseContext.getCurrentId())
                 .build();
         categoryMapper.update(category);
     }
 
     /**
+
      * 根据类型查询分类
      * @param type
      * @return
